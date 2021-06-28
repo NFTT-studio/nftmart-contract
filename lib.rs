@@ -3,7 +3,7 @@
 use ink_env::Environment;
 use ink_lang as ink;
 use ink_prelude::vec::Vec;
-use scale::{Encode, Decode};
+use scale::{Decode, Encode};
 
 pub type Quantity = u64;
 pub type ClassId = u32;
@@ -16,21 +16,20 @@ pub type BlockNumber = <ink_env::DefaultEnvironment as Environment>::BlockNumber
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
 #[derive(Encode, Decode, Clone, PartialEq, Eq, Default)]
 pub struct TokenInfo {
-	pub metadata: Metadata,
-	pub data: TokenData,
-	pub quantity: Quantity,
+    pub metadata: Metadata,
+    pub data: TokenData,
+    pub quantity: Quantity,
 }
 
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
 #[derive(Encode, Decode, Clone, PartialEq, Eq, Default)]
 pub struct TokenData {
-	pub deposit: Balance,
-	pub create_block: BlockNumber,
-	pub royalty: bool,
-	pub creator: ink_env::AccountId,
-	pub royalty_beneficiary: ink_env::AccountId,
+    pub deposit: Balance,
+    pub create_block: BlockNumber,
+    pub royalty: bool,
+    pub creator: ink_env::AccountId,
+    pub royalty_beneficiary: ink_env::AccountId,
 }
-
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, scale::Encode, scale::Decode)]
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
@@ -73,14 +72,17 @@ pub trait NFTMart {
     fn create_class(metadata: Metadata, name: Chars, description: Chars, properties: u8) -> (ink_env::AccountId, ClassId);
 
     #[ink(extension = 2003, returns_result = false)]
-    fn proxy_mint(to: &ink_env::AccountId, class_id: ClassId, metadata: Metadata,
-                  quantity: Quantity, charge_royalty: Option<bool>,
+    fn proxy_mint(
+        to: &ink_env::AccountId,
+        class_id: ClassId,
+        metadata: Metadata,
+        quantity: Quantity,
+        charge_royalty: Option<bool>,
     ) -> (ink_env::AccountId, ink_env::AccountId, ClassId, TokenId, Quantity);
 
-	#[ink(extension = 2004, returns_result = false)]
-	fn transfer(to: &ink_env::AccountId, class_id: ClassId, token_id: TokenId, quantity: Quantity) -> ();
+    #[ink(extension = 2004, returns_result = false)]
+    fn transfer(to: &ink_env::AccountId, class_id: ClassId, token_id: TokenId, quantity: Quantity) -> ();
 
-	#[ink(extension = 1001, handle_status = false, returns_result = false)]
-	fn tokens(class_id: ClassId, token_id: TokenId) -> Option<TokenInfo>;
+    #[ink(extension = 1001, handle_status = false, returns_result = false)]
+    fn tokens(class_id: ClassId, token_id: TokenId) -> Option<TokenInfo>;
 }
-

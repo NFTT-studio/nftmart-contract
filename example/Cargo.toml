@@ -15,7 +15,7 @@ ink_prelude = { version = "3.0.0-rc3", default-features = false }
 scale = { package = "parity-scale-codec", version = "2.1", default-features = false, features = ["derive"] }
 scale-info = { version = "0.6.0", default-features = false, features = ["derive"], optional = true }
 
-nftmart-contract = { version = "0.1.0", path = "..", default-features = false}
+nftmart-contract = { version = "0.1.0", git = "https://github.com/NFTT-studio/nftmart-contract.git", rev = "7ea838c", default-features = false}
 
 [lib]
 name = "nftdemo"
