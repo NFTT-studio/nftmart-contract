@@ -33,10 +33,10 @@ mod contract_demo {
             Self { value: Default::default() }
         }
 
-        /// hello
+        /// hello 1
         #[ink(message)]
         pub fn tokens(&self, class_id: ClassId, token_id: TokenId) -> (Metadata, Quantity, BlockNumber) {
-            let info: Option<TokenInfo> = self.env().extension().tokens(class_id, token_id);
+            let info: Option<ContractTokenInfo<_, _, _, _, _>> = self.env().extension().tokens(class_id, token_id);
             let info = info.unwrap_or_default();
             (info.metadata, info.quantity, info.data.create_block)
         }

@@ -3,7 +3,7 @@
 use ink_env::Environment;
 use ink_lang as ink;
 use ink_prelude::vec::Vec;
-use scale::{Decode, Encode};
+pub use contract_types::*;
 
 pub type Quantity = u64;
 pub type ClassId = u32;
@@ -12,24 +12,6 @@ pub type Metadata = Vec<u8>;
 pub type Chars = Vec<u8>;
 pub type Balance = <ink_env::DefaultEnvironment as Environment>::Balance;
 pub type BlockNumber = <ink_env::DefaultEnvironment as Environment>::BlockNumber;
-
-#[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
-#[derive(Encode, Decode, Clone, PartialEq, Eq, Default)]
-pub struct TokenInfo {
-    pub metadata: Metadata,
-    pub data: TokenData,
-    pub quantity: Quantity,
-}
-
-#[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
-#[derive(Encode, Decode, Clone, PartialEq, Eq, Default)]
-pub struct TokenData {
-    pub deposit: Balance,
-    pub create_block: BlockNumber,
-    pub royalty: bool,
-    pub creator: ink_env::AccountId,
-    pub royalty_beneficiary: ink_env::AccountId,
-}
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, scale::Encode, scale::Decode)]
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
@@ -84,5 +66,7 @@ pub trait NFTMart {
     fn transfer(to: &ink_env::AccountId, class_id: ClassId, token_id: TokenId, quantity: Quantity) -> ();
 
     #[ink(extension = 1001, handle_status = false, returns_result = false)]
-    fn tokens(class_id: ClassId, token_id: TokenId) -> Option<TokenInfo>;
+    fn tokens(class_id: ClassId, token_id: TokenId) -> Option<ContractTokenInfo<
+        Metadata, Quantity, Balance, BlockNumber, ink_env::AccountId,
+    >>;
 }
