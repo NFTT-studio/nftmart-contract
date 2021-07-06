@@ -33,7 +33,16 @@ mod contract_demo {
             Self { value: Default::default() }
         }
 
-        /// hello 1
+        /// a handy test case:
+        /// Account: //Alice
+        /// signature: 0x00277901dacb28bf5f34f172d065a27d9ab97f231bf799f6beee4b0a4d7d702acbfd1c9c155517efd6ad71bb280a0fccfd33e0b3517c06f07ca1fcd7fec32888
+        /// message: dddddddaaaa1
+        /// return: true
+        #[ink(message)]
+        pub fn sr25519_verify(&self, account: AccountId, signature: Vec<u8>, message: Vec<u8>) -> bool {
+            self.env().extension().sr25519_verify(&account, signature, message)
+        }
+
         #[ink(message)]
         pub fn tokens(&self, class_id: ClassId, token_id: TokenId) -> (Metadata, Quantity, BlockNumber) {
             let info: Option<ContractTokenInfo<_, _, _, _, _>> = self.env().extension().tokens(class_id, token_id);

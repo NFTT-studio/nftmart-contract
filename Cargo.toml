@@ -16,6 +16,7 @@ scale = { package = "parity-scale-codec", version = "2.1", default-features = fa
 scale-info = { version = "0.6.0", default-features = false, features = ["derive"], optional = true }
 
 contract-types = { git = "https://github.com/NFTT-studio/nftmart-node.git", branch = "dev", default-features = false}
+#contract-types = { path = "/data/test/NFTMart-Node/pallets/nftmart-traits/contract-types", default-features = false}
 
 [lib]
 name = "nftmart_contract"

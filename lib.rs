@@ -69,4 +69,9 @@ pub trait NFTMart {
     fn tokens(class_id: ClassId, token_id: TokenId) -> Option<ContractTokenInfo<
         Metadata, Quantity, Balance, BlockNumber, ink_env::AccountId,
     >>;
+
+    #[ink(extension = 1101, handle_status = false, returns_result = false)]
+    fn sr25519_verify(
+        account: &ink_env::AccountId, signature: Vec<u8>, message: Vec<u8>
+    ) -> bool;
 }

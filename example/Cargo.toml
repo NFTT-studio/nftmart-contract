@@ -16,6 +16,7 @@ scale = { package = "parity-scale-codec", version = "2.1", default-features = fa
 scale-info = { version = "0.6.0", default-features = false, features = ["derive"], optional = true }
 
 nftmart-contract = { git = "https://github.com/NFTT-studio/nftmart-contract.git", branch = "main", default-features = false}
+#nftmart-contract = { path = "..", default-features = false}
 
 [lib]
 name = "nftdemo"
