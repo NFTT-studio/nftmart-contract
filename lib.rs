@@ -8,10 +8,12 @@ pub use contract_types::*;
 pub type Quantity = u64;
 pub type ClassId = u32;
 pub type TokenId = u64;
+pub type GlobalId = u64;
 pub type Metadata = Vec<u8>;
 pub type Chars = Vec<u8>;
 pub type Balance = <ink_env::DefaultEnvironment as Environment>::Balance;
 pub type BlockNumber = <ink_env::DefaultEnvironment as Environment>::BlockNumber;
+pub type PerU16 = u16;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, scale::Encode, scale::Decode)]
 #[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
@@ -40,6 +42,7 @@ impl Environment for CustomEnvironment {
     type Hash = <ink_env::DefaultEnvironment as Environment>::Hash;
     type BlockNumber = <ink_env::DefaultEnvironment as Environment>::BlockNumber;
     type Timestamp = <ink_env::DefaultEnvironment as Environment>::Timestamp;
+    type RentFraction = <ink_env::DefaultEnvironment as Environment>::RentFraction;
     type ChainExtension = NFTMart;
 }
 
@@ -51,7 +54,7 @@ pub trait NFTMart {
     fn fetch_random() -> [u8; 32];
 
     #[ink(extension = 2002, returns_result = false)]
-    fn create_class(metadata: Metadata, name: Chars, description: Chars, properties: u8) -> (ink_env::AccountId, ClassId);
+    fn create_class(metadata: Metadata, name: Chars, description: Chars, properties: u8, royalty_rate: PerU16, category_id: GlobalId) -> (ink_env::AccountId, ClassId);
 
     #[ink(extension = 2003, returns_result = false)]
     fn proxy_mint(

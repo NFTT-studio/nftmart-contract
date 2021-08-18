@@ -57,8 +57,10 @@ mod contract_demo {
             name: Chars,
             description: Chars,
             properties: u8,
+            roalty_rate: PerU16,
+            category_id: GlobalId
         ) -> Result<(), NFTMartErr> {
-            let (owner, class_id) = self.env().extension().create_class(metadata, name, description, properties)?;
+            let (owner, class_id) = self.env().extension().create_class(metadata, name, description, properties, roalty_rate, category_id)?;
             self.env().emit_event(CreateClassFromContract { owner, class_id });
             Ok(())
         }

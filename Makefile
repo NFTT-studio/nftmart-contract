@@ -1,5 +1,5 @@
-test:
-	cd example && cargo +nightly test
-
 build:
-	cd example && cargo +nightly contract build
+	cd example && proxychains cargo +nightly contract build
+
+test:
+	cd example && proxychains cargo +nightly test
