@@ -54,7 +54,7 @@ pub trait NFTMart {
     fn fetch_random() -> [u8; 32];
 
     #[ink(extension = 2002, returns_result = false)]
-    fn create_class(metadata: Metadata, name: Chars, description: Chars, properties: u8, royalty_rate: PerU16, category_id: GlobalId) -> (ink_env::AccountId, ClassId);
+    fn create_class(metadata: Metadata, name: Chars, description: Chars, properties: u8, royalty_rate: PerU16, category_ids: Vec<GlobalId>) -> (ink_env::AccountId, ClassId);
 
     #[ink(extension = 2003, returns_result = false)]
     fn proxy_mint(
